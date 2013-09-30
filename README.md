@@ -1,1 +1,1 @@
-Small Toolkit to analys financial data
+Small Toolkit to analyse financial data
