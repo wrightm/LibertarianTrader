@@ -1,18 +1,70 @@
 '''
+Parses Yahoo CSV Files into a usable python object
+
+usage:
+
+    Downloading more than one ticker
+    
+    import datetime
+    
+    start = datetime.date(2000, 1, 1)
+    end = datetime.date.today()
+    stockInfoToGet = {'GOOG': { 'startDate': start, 'endDate': end, 'interval': 'w'},
+                     'YHOO': { 'startDate': start, 'endDate': end, 'interval': 'w'}
+                    }
+             
+    tickerInfoGetter = YahooTickerGetter()               
+    tickerInfo = tickerInfoGetter.getMultipleHistoricStockMarkgetData(stockInfoGetter)
+    
+    yahooTickerParser = YahooTickerParser()
+    yahooParsedTickerData = yahooTickerParser.parse(tickerInfo)
+
+    ============
+    ============
+
+    Downloading one ticker
+    
+    import datetime
+    
+    start = datetime.date(2000, 1, 1)
+    end = datetime.date.today()
+        
+    tickerInfoGetter = YahooTickerGetter()               
+    tickerInfo = tickerInfo.getHistoricStockMarkgetData('GOOG', start, end, 'w')
+        
+    yahooTickerParser = YahooTickerParser()
+    yahooParsedTickerData = yahooTickerParser.parse(('GOOG',tickerInfo))
 
 @author: wrightm
 '''
+#!/usr/bin/env python
+
+#=====================================
+# imports
+#=====================================
+
+#=====================================
+# python system
+#=====================================
 import datetime
+
+#=====================================
+# LibertarianTrader system
+#=====================================
 from src.main.com.github.wrightm.libertariantrader.datacollection.yahootickergetter import YahooTickerGetter
 
 class YahooTickerParser(object):
     '''
-    Parses Yahoo CSV Files into a usable python object
+        Parses Yahoo CSV Files into a usable python object
     '''
 
 
     def __isInfoTitleListValid(self, infoTitleList):
-        
+        '''
+            Check whether title of downloaded yahoo csv ticker information has valid column headers
+            @param infoTitleList: list of column headers
+            @return: True if column headers are valid. Else False
+        '''
         if 'Date' in infoTitleList and \
         'Open' in infoTitleList and \
         'High' in infoTitleList and \
@@ -26,7 +78,15 @@ class YahooTickerParser(object):
     
     
     def __parseDict(self, yahooStockInfo):
-        
+        '''
+            Parse stock information data that is in a dictionary format. 
+            The data will be given to the method by the YahooTickerGetter objects               
+            getMultipleHistoricStockMarkgetData method
+            
+            @precondition: yahooStockInfo will be the output from YahooTickerGetter::getMultipleHistoricStockMarkgetData
+            @param yahooStockInfo: dictionary of stock information
+            @return: parsed stock information
+        '''
         stockData = {}
         for name, info in yahooStockInfo.iteritems():
             stockData[name] = {} 
@@ -60,8 +120,16 @@ class YahooTickerParser(object):
         return stockData
     
     
-    def __parseStr(self, yahooStockInfo):
-        
+    def __parseTuple(self, yahooStockInfo):
+        '''
+            Parse stock information data that is in a tuple format. 
+            The data will be given to the method by the YahooTickerGetter objects               
+            getHistoricStockMarkgetData method
+            
+            @precondition: yahooStockInfo will be the output from YahooTickerGetter::getHistoricStockMarkgetData
+            @param yahooStockInfo: tuple of stock information
+            @return: parsed stock information
+        '''
         name = yahooStockInfo[0]
         info = yahooStockInfo[1]
         stockData = {}
@@ -96,16 +164,21 @@ class YahooTickerParser(object):
     
     
     def parse(self, yahooStockInfo):
-        
+        '''
+            Return parsed stock information
+            @param yahooStockInfo: either tuple or dictionary stock information
+            @return parsed stock information
+            @raise TypeError: when yahooStockInfo is not of type dict or tuple
+        '''
         if isinstance(yahooStockInfo, dict):
             return self.__parseDict(yahooStockInfo)
         elif isinstance(yahooStockInfo, tuple):
-            return self.__parseStr(yahooStockInfo)
+            return self.__parseTuple(yahooStockInfo)
         else:
-            raise ValueError('yahooStockInfo must be of type dict or type tuple')
+            raise TypeError('yahooStockInfo must be of type dict or type tuple')
         
     def testDictParser(self):
-        
+
         start = datetime.date(2000, 1, 1)
         end = datetime.date.today()
         stockInfo = {'GOOG': { 'startDate': start, 'endDate': end, 'interval': 'w'},
@@ -120,7 +193,7 @@ class YahooTickerParser(object):
 
         assert(len(yahooStockData) > 0) 
         
-    def testStringParse(self):
+    def testTupleParse(self):
         
         start = datetime.date(2000, 1, 1)
         end = datetime.date.today()
@@ -137,7 +210,7 @@ def test():
     
     yahooTickerParserTest = YahooTickerParser()
     yahooTickerParserTest.testDictParser()
-    yahooTickerParserTest.testStringParse()    
+    yahooTickerParserTest.testTupleParse()    
     
 if __name__ == "__main__":
     test()    

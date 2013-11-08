@@ -1,0 +1,10 @@
+*Not Done* test fairness of stats probability to go up or down in price from a different period. 
+*Not Done* need to calculate uncertainty of probability in gainAndLossesModule
+*Not Done* add a project logging module (should log error, warning messages etc)
+*Not Done* add a project settings module (use to set file directories, etc)
+*Not Done* add to gainAndLosses module method of calculating probability of having n days of gains or losses (e.x. 50%*50% for a coin twice)
+*Not Done* add Filter module (day filter, check other possible filters)
+*Not Done* add BiasPmf that changes Pmf with a given Bias
+*Finished 08/11/2013* use gainAndLosses module with tutorial
+*Finished 08/11/2013* gainAndLosses module add unit tests
+*Finished 05/11/2013* add comments to gainAndLosses module

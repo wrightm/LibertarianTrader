@@ -1,6 +1,4 @@
 '''
-Created on 10 Oct 2013
-
 @author: wrightm
 '''
 from src.main.com.github.wrightm.libertariantrader.datacollection.yahootickerparser import YahooTickerParser

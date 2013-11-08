@@ -1,6 +1,19 @@
 '''
-Created on Feb 11, 2013
+Retrieves Yahoo Ticker data for particular ID's and their respective interval dates
 
+usage:
+
+    import datetime
+    
+    start = datetime.date(2000, 1, 1)
+    end = datetime.date.today()
+    stockInfoToGet = {'GOOG': { 'startDate': start, 'endDate': end, 'interval': 'w'},
+                      'YHOO': { 'startDate': start, 'endDate': end, 'interval': 'w'}
+                    }
+             
+    tickerInfoGetter = YahooTickerGetter()               
+    tickerInfo = tickerInfoGetter.getMultipleHistoricStockMarkgetData(stockInfoToGet)
+        
 @author: michaelwright
 '''
 
@@ -18,13 +31,17 @@ from Queue import Queue
 import threading
 
 class YahooTickerGetter(object):
-    
+    '''
+        Retrieves Yahoo Ticker data for particular ID's and their respective interval dates
+    '''
     def __init__(self):
         self.__rlock = threading.RLock()
         
     def __stockMarketWorker(self, allStockInfo,queue):
         """
             Thread safe stock market ticker info getter
+            @param allStockInfo: dictionary of ticker data
+            @param queue: thread safe queue of ticker information to retrieve
         """
         data = queue.get()
         ticker = self.getHistoricStockMarkgetData(data[0], data[1], data[2], data[3])
@@ -35,6 +52,11 @@ class YahooTickerGetter(object):
     def getHistoricStockMarkgetData(self, ID, startDate, endDate, interval='w'):
         """
             Return Stock ID INFO From Yahoo
+            @param ID: name of ticker
+            @param startDate: start date of ticker information
+            @param endDate: end date of ticker information
+            @param interval: interval of data collection
+            @return String of ticker information for date interval
         """
         with self.__rlock:
             url = 'http://ichart.yahoo.com/table.csv?'
@@ -49,7 +71,10 @@ class YahooTickerGetter(object):
             return response.read()
 
     def getMultipleHistoricStockMarkgetData(self, tickersToDownload):
-    
+        '''
+            Return dictionary of all stock information
+            @param tickersToDownload: dictionary of tickers information to download
+        '''
         threadQueue  = Queue()
         allStockInfo = dict() 
     

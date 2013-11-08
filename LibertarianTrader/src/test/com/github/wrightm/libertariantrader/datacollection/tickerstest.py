@@ -16,8 +16,8 @@ class TickersTest(unittest.TestCase):
 
     def testNumberOfTickersUsingConstructor(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickerList = [tickerOne, tickerTwo]
         
@@ -27,8 +27,8 @@ class TickersTest(unittest.TestCase):
         
     def testNumberOfTickersUsingAppend(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -38,8 +38,8 @@ class TickersTest(unittest.TestCase):
         
     def testGetTickerUsingScopeOperator(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -49,8 +49,8 @@ class TickersTest(unittest.TestCase):
         
     def testSetTickerUsingScopeOperator(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -63,8 +63,8 @@ class TickersTest(unittest.TestCase):
         
     def testHeadTicker(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -74,8 +74,8 @@ class TickersTest(unittest.TestCase):
         
     def testTailTickers(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -85,8 +85,8 @@ class TickersTest(unittest.TestCase):
     
     def testInitTickers(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -96,8 +96,8 @@ class TickersTest(unittest.TestCase):
         
     def testLastTicker(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -107,8 +107,8 @@ class TickersTest(unittest.TestCase):
         
     def testDropFirstTicker(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -118,8 +118,8 @@ class TickersTest(unittest.TestCase):
         
     def testTakeTickers(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -129,8 +129,8 @@ class TickersTest(unittest.TestCase):
         
     def testRemovingTicker(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -140,8 +140,8 @@ class TickersTest(unittest.TestCase):
         
     def testAllTickers(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)
@@ -156,8 +156,8 @@ class TickersTest(unittest.TestCase):
         
     def testGetTickers(self):
         
-        tickerOne = Ticker("Google", "01-10-1986", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
-        tickerTwo = Ticker("Google", "01-10-1985", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
         
         tickers = Tickers()
         tickers.append(tickerOne)

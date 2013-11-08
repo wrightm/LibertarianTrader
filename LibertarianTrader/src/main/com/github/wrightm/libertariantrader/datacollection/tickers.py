@@ -3,7 +3,21 @@ A collection of tickers that can be viewed in a number of Orders:
         name, date, open price, highest price, lowest price, close price, volume and adjusted close price
 @author: wrightm
 '''
+
+#!/usr/bin/env python
+
+#=====================================
+# imports
+#=====================================
+
+#=====================================
+# python system
+#=====================================
 import copy
+
+#=====================================
+# LibertarianTrader system
+#=====================================
 from src.main.com.github.wrightm.libertariantrader.datacollection.ticker import Ticker
 
 class Tickers(object):
@@ -48,6 +62,9 @@ class Tickers(object):
         return self.__tickers[0]
     
     def tail(self):
+        '''
+            Return list of all tickers except head
+        '''
         return self.__tickers[1:]
     
     def init(self):
@@ -127,4 +144,7 @@ class Tickers(object):
         self.__tickers = filter(lambda element: element != ticker, self.__tickers)
         
     def getTickerList(self):
+        '''
+            Return List of tickers 
+        '''
         return copy.deepcopy(self.__tickers)
