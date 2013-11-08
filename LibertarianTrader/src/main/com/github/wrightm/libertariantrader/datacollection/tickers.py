@@ -20,6 +20,7 @@ import copy
 #=====================================
 from src.main.com.github.wrightm.libertariantrader.datacollection.ticker import Ticker
 
+
 class Tickers(object):
     '''
     A collection of tickers that can be viewed in a number of Orders:
@@ -33,6 +34,7 @@ class Tickers(object):
         '''
         if not self.isTickerListValid(tickers) and tickers:
             raise ValueError('tickers is not a valid ticker list')
+        
         self.__tickers = copy.deepcopy(tickers) if tickers else []
     
     def __len__(self):
