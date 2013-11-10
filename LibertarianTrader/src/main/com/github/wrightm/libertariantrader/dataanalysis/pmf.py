@@ -6,6 +6,7 @@ Probability Mass Function
 from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencies import SampleFrequencies
 import math
 import decimal
+import copy
 
 class Pmf(object):
     '''
@@ -22,7 +23,7 @@ class Pmf(object):
         if not isinstance(frequencies, SampleFrequencies):
             raise TypeError('frequencies param is not of type SampleFrequencies')
         
-        self.__frequencies = frequencies
+        self.__frequencies = frequencies.copy()
         self.__factor = normFactor
         self.__pmf = {}
         self.__normalise()
@@ -174,7 +175,84 @@ class Pmf(object):
         index = long( percentile * (decimal.Decimal(len(keys)-1)/ 100))
         return keys[index]
     
- 
+    def getFrequencies(self):
+        """
+        Return Frequencies
+        """
+        return copy.deepcopy(self.__frequencies)
+    
+    def copy(self):
+        """
+        Return deep copy of Pmf
+        """
+        return Pmf(self.__frequencies, self.__factor)
+    
+class Bias(object):
+    '''
+    Base class for Biases for a given Pmf
+    '''
+
+    def __call__(self, value):
+        '''
+        Calculate bias for particular value from pmf
+        
+        @param value: value from pmf
+        @return: bias factor for particular pmf value
+        '''
+        return value
+    
+    
+def biasPmf(pmf, bias,invert=False):
+    
+    """
+        Oversampled pmf will not show the true distribution of the sample.
+        An e.x. of this is class sizes:
+        
+        From the view of the dean we see a true sample of the average class sizes,
+        but from the student view this is oversampled as there are more students in the bigger class sizes.
+        Hence more students will say there classes are large
+    
+    Parameters:
+    -----------
+    @param bias: Bias
+    bias to use for biasing pmf
+    @param pmf: Pmf
+    pmf distribution of sample
+    @param invert: boolean
+    if false pmf is biased else unbiased
+    
+    Return:
+    -------
+    @return: Pmf
+    return modified pmf biased or unbiased      
+    """
+    if not issubclass(bias, Bias) and not isinstance(bias, Bias):
+        raise TypeError('bias is not type or sub type of Bias')
+
+    newFrequencies = {}    
+    for value, freq in pmf.getFrequencies().iterPairs():
+        if invert:
+            if value:
+                newFrequencies[value] = float(freq) * float(1.0/bias(value)())
+        else:
+            newFrequencies[value] = freq * bias(value)()
+    return Pmf(SampleFrequencies(newFrequencies))
+
+def unBiasPmf(pmf, bias):
+    """
+    Return unbiased pmf, should be the same as original
+        
+    Parameters:
+    -----------
+    @param pmf: Pmf
+    pmf distribution of sample
+    
+    Return:
+    -------
+    @return: Pmf
+    return modified unbiased pmf
+    """
+    return biasPmf(pmf, bias, invert=True)
     
     
     

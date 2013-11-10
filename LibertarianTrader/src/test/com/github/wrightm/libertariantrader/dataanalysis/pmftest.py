@@ -6,7 +6,17 @@ Created on 21 Oct 2013
 import unittest
 from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencies import SampleFrequencies
 from src.main.com.github.wrightm.libertariantrader.dataanalysis import pmf
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.pmf import biasPmf, Bias,\
+    unBiasPmf
 
+class BiasTest(Bias):
+    
+    def __init__(self, value):
+        Bias.__init__(value)
+        self.value = value
+        
+    def __call__(self):
+        return 10;
 
 class PmfTest(unittest.TestCase):
 
@@ -259,6 +269,56 @@ class PmfTest(unittest.TestCase):
         
         p_m_f =  pmf.Pmf(frequencies)
         self.assertAlmostEqual(p_m_f.getStDev(), 3.425, 2, 'stdev does not equal 3.42554740151')
+    
+    def testBiasedPmf(self):
+        
+        frequencies = SampleFrequencies()
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(4)
+        frequencies.set(5)
+        frequencies.set(6)
+        frequencies.set(7)
+        frequencies.set(8)
+        frequencies.set(9)
+        frequencies.set(9)
+        frequencies.set(10)
+        frequencies.set(10)
+        
+        p_m_f =  pmf.Pmf(frequencies)
+        biasedPmf = biasPmf(p_m_f, BiasTest)
+        
+        self.assertAlmostEqual(biasedPmf.getStDev(), 3.425, 2, 'stdev does not equal 3.42554740151')
+        
+    def testUnBiasedPmf(self):
+        
+        frequencies = SampleFrequencies()
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(4)
+        frequencies.set(5)
+        frequencies.set(6)
+        frequencies.set(7)
+        frequencies.set(8)
+        frequencies.set(9)
+        frequencies.set(9)
+        frequencies.set(10)
+        frequencies.set(10)
+        
+        p_m_f =  pmf.Pmf(frequencies)
+        biasedPmf = biasPmf(p_m_f, BiasTest)
+        unbiasedPmf = unBiasPmf(biasedPmf, BiasTest)
+        self.assertAlmostEqual(unbiasedPmf.getStDev(), 3.425, 2, 'stdev does not equal 3.42554740151')
         
 if __name__ == "__main__":
     unittest.main()

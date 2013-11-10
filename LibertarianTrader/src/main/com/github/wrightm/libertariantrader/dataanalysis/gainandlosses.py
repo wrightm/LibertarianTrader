@@ -5,6 +5,7 @@ Created on 29 Oct 2013
 '''
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickers import Tickers
 from matplotlib.dates import date2num
+import math
 
 class TickersGainAndLosses(object):
     '''
@@ -193,8 +194,28 @@ class TickersGainAndLosses(object):
         """
         return self.__probabilityOfGain
     
+    def getProbabilityOfGainForNDays(self, nDays):
+        """
+        Return probability of gains for n days
+        
+        Parameters:
+        -----------
+        @param nDays: number of days of consecutive gains
+        """
+        return math.pow(self.__probabilityOfGain, nDays)
+    
     def getProbabilityOfLoss(self):
         """
         Return probability of a Loss
         """
         return self.__probabilityOfLoss
+    
+    def getProbabilityOfLossForNDays(self, nDays):
+        """
+        Return probability of Loss for n days
+        
+        Parameters:
+        -----------
+        @param nDays: number of days of consecutive losses
+        """
+        return math.pow(self.__probabilityOfLoss, nDays)
