@@ -12,14 +12,15 @@ class CDF(object):
     Cumulative Density Function
     '''
     
-    def __init__(self, sample):
+    def __init__(self, sample, ccdf=False):
         '''
             Produce cdf from sample
             
             Parameters:
             ----------
             @param sample: sample to be used to construct cdf
-            
+            @param ccdf: calculate the ccdf instead of the cdf 
+
             Exceptions:
             -----------
             @raise AttributeError: if sample does not have getPairs attribute
@@ -29,6 +30,7 @@ class CDF(object):
             raise AttributeError('sample does not have getPairs attribute')
 
         self.__sample = sample
+        self.__ccdf = ccdf
         self.__init()
         
         
@@ -45,7 +47,10 @@ class CDF(object):
             self.__cs.append(runningSum)
         
         total = float(runningSum)
-        self.__ps = map(lambda value: value/total, self.__cs)
+        if not self.__ccdf:
+            self.__ps = map(lambda value: value/total, self.__cs)
+        else:
+            self.__ps = map(lambda value: 1.0 - (value/total), self.__cs)
         
     def getValue(self, prob):
         """
@@ -188,3 +193,5 @@ class CDF(object):
         Return list of (value, probabilities)
         """
         return zip(self.__xs, self.__ps)
+    
+        

@@ -99,7 +99,24 @@ class CDFTest(unittest.TestCase):
                   4:3 }
         sampleFrequency = SampleFrequencies(sample)
         cdf = CDF(sampleFrequency)
-        self.assertEqual(len(cdf.getPairs()), 4, 'cdf pair size is not equal to 4')   
+        self.assertEqual(len(cdf.getPairs()), 4, 'cdf pair size is not equal to 4')
+        
+    def testCCDF(self):
+        
+        sample = {1:10,
+                  2:5,
+                  3:20,
+                  4:3 }
+        sampleFrequency = SampleFrequencies(sample)
+        
+        cdf = CDF(sampleFrequency)
+        ccdf = CDF(sampleFrequency,ccdf=True)
+        
+        for value, prob in cdf.getPairs():
+            self.assertEqual(1-prob, ccdf.getProbability(value), '1 - cdf does not equal ccdf for value %s' % value)
+            
+        
+        
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,11 +13,23 @@ class Pmf(object):
     Probability Mass Function
     '''
     
-    def __init__(self, frequencies, normFactor=1.0):
+    def __init__(self, frequencies, normFactor=1.0, logTransform=False, expoTransform=False):
         '''
             initialise SampleFrequencies, normalisation factor and Pmf directory
-            @param frequencies: dictionary of items and there frequencies
-            @param normFactor: factor to multiple the probability for each item
+            
+            Parameters:
+            -----------
+            @param frequencies: dictionary 
+            items and there frequencies
+            @param normFactor: float
+            factor to multiple the probability for each item
+            @param logTransform: boolean
+            transform pmf to logarithm
+            @param expoTransform: boolean
+            transform pmf to exponetial 
+            
+            Exceptions:
+            -----------
             @raise TypeError: when frequencies is not of type SampleFrequencies
         '''
         if not isinstance(frequencies, SampleFrequencies):
@@ -25,6 +37,8 @@ class Pmf(object):
         
         self.__frequencies = frequencies.copy()
         self.__factor = normFactor
+        self.__logTransform = logTransform
+        self.__expoTransform = expoTransform
         self.__pmf = {}
         self.__normalise()
         self.__mu = None
@@ -39,8 +53,15 @@ class Pmf(object):
             normalise frequencies to produce probabilities 
         '''
         norm = self.__factor / self.__total()
+        maxValue = max(self.__frequencies.getFrequencies())
         for item, frequency in self.__frequencies.iterPairs():
-            self.__pmf[item] = frequency * norm
+            
+            if self.__logTransform:
+                self.__pmf[item] = math.log((frequency * norm) / maxValue)
+            elif self.__expoTransform:
+                self.__pmf[item] = math.exp((frequency * norm) / maxValue)
+            else:
+                self.__pmf[item] = frequency * norm
     
     def get(self, item):
         '''

@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import  DateFormatter, DayLocator, date2num
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
-from src.main.com.github.wrightm.libertariantrader.datavisualisation.figuresettings import FigureSettings
 from matplotlib import pyplot
+from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.figuresettings import FigureSettings
      
 class CandleSticks(object):
     '''
@@ -50,7 +50,7 @@ class CandleSticks(object):
         self.__colorup = figureSettings.get('colorup', 'k') 
         self.__colordown = figureSettings.get('colordown', 'r')
         self.__alpha = figureSettings.get('alpha', 1.0)
-        
+        self.__offset = self.__candleWidth / 2.0
         self.__setupfigureSettings() 
         self.__setupTickerAndVolume()
         
@@ -79,54 +79,57 @@ class CandleSticks(object):
             construct and fill tickers/volume into plots
         '''
 
-        OFFSET = self.__candleWidth / 2.0
-
         for ticker in self.__tickers:
-            t = date2num(ticker.getDate())
-            open = ticker.getOpen()
-            close = ticker.getAdjustedClose()
-            high = ticker.getHigh()
-            low = ticker.getLow()
-            volume = ticker.getVolume()
-             
-            if close >= open:
-                color = self.__colorup
-                lower = open
-                height = close - open
-            else:
-                color = self.__colordown
-                lower = close
-                height = open - close
-
-            vline = Line2D(
-                           xdata=(t, t), ydata=(low, high),
-                           color='k',
-                           linewidth=1,
-                           antialiased=True,
-                           )
-
-            rectTicker = Rectangle(
-                             xy=(t - OFFSET, lower),
-                             width = self.__candleWidth,
-                             height = height,
-                             facecolor = color,
-                             edgecolor = color,
-                             )
+            self.addTicker(ticker)
             
-            rectTicker.set_alpha(self.__alpha)
+    def addTicker(self, ticker):
+        
+        t = date2num(ticker.getDate())
+        open = ticker.getOpen()
+        close = ticker.getAdjustedClose()
+        high = ticker.getHigh()
+        low = ticker.getLow()
+        volume = ticker.getVolume()
+             
+        if close >= open:
+            color = self.__colorup
+            lower = open
+            height = close - open
+        else:
+            color = self.__colordown
+            lower = close
+            height = open - close
 
-            rectVolume = Rectangle(
-                             xy=(t - OFFSET, 0),
-                             width = self.__candleWidth,
-                             height = volume,
-                             facecolor = color,
-                             edgecolor = color,
-                             )
+        vline = Line2D(
+                       xdata=(t, t), ydata=(low, high),
+                       color='k',
+                       linewidth=1,
+                       antialiased=True,
+                       )
 
-            self.__axCandle.add_line(vline)
-            self.__axCandle.add_patch(rectTicker)
-            self.__axVolume.add_patch(rectVolume)
-    
+        rectTicker = Rectangle(
+                               xy=(t - self.__offset, lower),
+                               width = self.__candleWidth,
+                               height = height,
+                               facecolor = color,
+                               edgecolor = color,
+                               )
+            
+        rectTicker.set_alpha(self.__alpha)
+
+        rectVolume = Rectangle(
+                               xy=(t - self.__offset, 0),
+                               width = self.__candleWidth,
+                               height = volume,
+                               facecolor = color,
+                               edgecolor = color,
+                               )
+
+        self.__axCandle.add_line(vline)
+        self.__axCandle.add_patch(rectTicker)
+        self.__axVolume.add_patch(rectVolume)
+        
+        
     def __isFilenameValid(self, filename):
         '''
             check filename is valid
@@ -184,6 +187,15 @@ class CandleSticks(object):
         self.__axVolume.autoscale_view()
         plt.setp( plt.gca().get_xticklabels(), rotation=45, horizontalalignment='right')
         plt.savefig(filename)
+        
+    def getFigure(self):
+        return self.__fig
+    
+    def getCandleAxis(self):
+        return self.__axCandle
+
+    def getVolumeAxis(self):
+        return self.__axVolume
         
 class Plot(object):
     '''

@@ -4,7 +4,7 @@ Created on 25 Oct 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.datavisualisation.figuresettings import FigureSettings
+from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.figuresettings import FigureSettings
 
 
 class FigureSettingsTest(unittest.TestCase):

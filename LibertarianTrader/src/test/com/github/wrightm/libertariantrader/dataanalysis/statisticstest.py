@@ -31,6 +31,62 @@ class StatsTest(unittest.TestCase):
         stdev = Stats.stdev(stdev)
         self.assertAlmostEqual(stdev, 2.897, 2, 'stdev does not equal 2.89 to 2 decimal places')
         
+    def testZScore(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        zscores = Stats.zscores(items)
+        self.assertEqual(len(zscores), len(items))
+        
+    def testTrimmed(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        trimmed = Stats.trimmed(items, percentage=0.1, sortLambda=lambda item: item)
+        
+        self.assertEqual(trimmed, [2,4,5,6,7,8,9])
+        
+    def testMad(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        mad = Stats.mad(items)
+        self.assertAlmostEqual(mad, 2.47, 2)
+        
+    def testMin(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        min = Stats.min(items)
+        self.assertEqual(min, 1)
+        
+    def testMax(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        max = Stats.max(items)
+        self.assertEqual(max, 10)
+        
+    def testRange(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        range = Stats.range(items)
+        self.assertEqual(range, 9)
+        
+    def testKurtosis(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        kurtosis = Stats.kurtosis(items)
+        self.assertAlmostEqual(kurtosis, -0.89, 2) 
+    
+    def testSkewness(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        skewness = Stats.skewness(items)
+        self.assertAlmostEqual(skewness, 2.11, 2)
+        
+    def testStandardError(self):
+        
+        items=[1,2,4,5,6,7,8,9,10]
+        standardError = Stats.standardError(items)
+        self.assertAlmostEqual(standardError, 0.97, 2)
+        
+    
         
 if __name__ == "__main__":
     unittest.main()

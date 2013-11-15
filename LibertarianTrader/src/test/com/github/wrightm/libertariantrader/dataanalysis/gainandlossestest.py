@@ -8,9 +8,9 @@ from src.main.com.github.wrightm.libertariantrader.dataanalysis.gainandlosses im
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickers import Tickers
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickerfile import TickerFile
 import datetime
-from src.main.com.github.wrightm.libertariantrader.datavisualisation.stockplots import Plot
-from src.main.com.github.wrightm.libertariantrader.datavisualisation.figuresettings import FigureSettings
 import matplotlib
+from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.figuresettings import FigureSettings
+from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.stockplots import Plot
 
 
 class GainAndLossesTest(unittest.TestCase):

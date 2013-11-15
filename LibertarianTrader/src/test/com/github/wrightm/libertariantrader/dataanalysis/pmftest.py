@@ -8,6 +8,8 @@ from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencie
 from src.main.com.github.wrightm.libertariantrader.dataanalysis import pmf
 from src.main.com.github.wrightm.libertariantrader.dataanalysis.pmf import biasPmf, Bias,\
     unBiasPmf
+from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.figuresettings import FigureSettings
+from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.stockplots import Plot
 
 class BiasTest(Bias):
     
@@ -319,6 +321,101 @@ class PmfTest(unittest.TestCase):
         biasedPmf = biasPmf(p_m_f, BiasTest)
         unbiasedPmf = unBiasPmf(biasedPmf, BiasTest)
         self.assertAlmostEqual(unbiasedPmf.getStDev(), 3.425, 2, 'stdev does not equal 3.42554740151')
+    
+    def testPlot(self):    
+        
+        frequencies = SampleFrequencies()
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(4)
+        frequencies.set(5)
+        frequencies.set(6)
+        frequencies.set(7)
+        frequencies.set(8)
+        frequencies.set(9)
+        frequencies.set(9)
+        frequencies.set(10)
+        frequencies.set(10)
+        
+        p_m_f =  pmf.Pmf(frequencies)
+        
+        figureSettings = FigureSettings()
+        figureSettings['xlabel'] = "values"
+        figureSettings['ylabel'] = "probability"
+        plot = Plot("plot", p_m_f, figureSettings)
+        fig, ax = plot.setup()
+        plot.save("/Volumes/MichaelWright1/Dropbox/Projects/LibertarianTrader/LibertarianTrader/resources/plots/test/pmfTest")
+
+        
+    def testPmfLogPlot(self):
+        
+        frequencies = SampleFrequencies()
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(4)
+        frequencies.set(5)
+        frequencies.set(6)
+        frequencies.set(7)
+        frequencies.set(8)
+        frequencies.set(9)
+        frequencies.set(9)
+        frequencies.set(10)
+        frequencies.set(10)
+        
+        p_m_f =  pmf.Pmf(frequencies, logTransform=True)
+        
+        figureSettings = FigureSettings()
+        figureSettings['xlabel'] = "values"
+        figureSettings['ylabel'] = "probability"
+        plot = Plot("plot", p_m_f, figureSettings)
+        fig, ax = plot.setup()
+        plot.save("/Volumes/MichaelWright1/Dropbox/Projects/LibertarianTrader/LibertarianTrader/resources/plots/test/pmfLogTest")
+
+    
+    
+    def testPmfExpPlot(self):
+        
+        frequencies = SampleFrequencies()
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(1)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(2)
+        frequencies.set(4)
+        frequencies.set(5)
+        frequencies.set(6)
+        frequencies.set(7)
+        frequencies.set(8)
+        frequencies.set(9)
+        frequencies.set(9)
+        frequencies.set(10)
+        frequencies.set(10)
+        
+        p_m_f =  pmf.Pmf(frequencies, expoTransform=True)
+        
+        figureSettings = FigureSettings()
+        figureSettings['xlabel'] = "values"
+        figureSettings['ylabel'] = "probability"
+        plot = Plot("plot", p_m_f, figureSettings)
+        fig, ax = plot.setup()
+        plot.save("/Volumes/MichaelWright1/Dropbox/Projects/LibertarianTrader/LibertarianTrader/resources/plots/test/pmfExpTest")
+
+        
+        
+        
+        
         
 if __name__ == "__main__":
     unittest.main()
