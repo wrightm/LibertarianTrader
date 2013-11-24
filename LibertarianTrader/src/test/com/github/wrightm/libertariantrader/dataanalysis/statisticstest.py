@@ -86,7 +86,30 @@ class StatsTest(unittest.TestCase):
         standardError = Stats.standardError(items)
         self.assertAlmostEqual(standardError, 0.97, 2)
         
+    def testCovariance(self):
     
+        cov = Stats.covariance(10, 5, 10, 5, 25)
+        self.assertEqual(cov, 1.0)
         
+    def testCovarianceFromSet(self):
+
+        setOne = [10,10,10,10,10]
+        setTwo = [10,10,10,10,10]
+        cov = Stats.covarianceFromSets(setOne, setTwo, 5, 5)
+        self.assertEqual(cov, 25.0)
+        
+    def testCorrelation(self):
+        
+        cor = Stats.correlation(10, 5, 1, 10, 5, 1, 5)
+        self.assertEqual(cor, 5)
+        
+    def testCorrelationFromSet(self):
+        
+        setOne = [10,10,10,10,10]
+        setTwo = [10,10,10,10,10]
+        cov = Stats.correlationFromSets(setOne, setTwo, 5, 1, 5, 1)
+        self.assertEqual(cov, 25.0)
+        
+
 if __name__ == "__main__":
     unittest.main()

@@ -3,7 +3,8 @@ Created on 15 Oct 2013
 
 @author: wrightm
 '''
-import math
+from src.main.com.github.wrightm.libertariantrader.utils.helpers import Helpers
+from src.main.com.github.wrightm.libertariantrader.utils.dataprocessing import DataProcessing
 
 class Stats(object):
     '''
@@ -15,41 +16,43 @@ class Stats(object):
     @staticmethod
     def mean(items):
         
-        if not isinstance(items, list):
-            raise TypeError('items is not of type list')
-        
-        return float(sum(items)) / len(items)
+        if not hasattr(items, '__iter__'):
+            raise TypeError('items is not an iterable type')
+
+        return Helpers.sumWrapper(items) / float(len(items))
     
     @staticmethod
     def var(items, mu=None):
         
-        if not isinstance(items, list):
-            raise TypeError('items is not of type list')
+        if not hasattr(items, '__iter__'):
+            raise TypeError('items is not an iterable type')
         
         if mu == None:
             mu = Stats.mean(items)
-            
-        dev2 = map(lambda item: math.pow((item-mu),2), items )
+        dev2 = map(lambda item: (item-mu)**2, items )
 
         if Stats.descriptive:
             return Stats.mean(dev2)
         else:
-            return float(sum(items)) / (len(items) -1)
+            return sum(items) / float(len(items) -1)
         
     @staticmethod
     def stdev(items, mu=None):
         
-        return math.sqrt(Stats.var(items, mu))
+        return (Stats.var(items, mu))**(0.5)
     
+    @staticmethod
+    def score(value, mean, stdev):        
+        return (value - mean) / stdev
+        
     @staticmethod
     def zscores(items, mu=None):
         
         if mu == None:
             mu = Stats.mean(items)
-        
         stdev = Stats.stdev(items, mu)
         
-        return [ float(item - mu) / float(stdev) for item in items ]
+        return [ Stats.score(item,mu,stdev) for item in items ]
     
     @staticmethod
     def trimmed(items, percentage=0.01, sortLambda=None):
@@ -69,7 +72,7 @@ class Stats(object):
         if mu == None:
             mu = Stats.mean(items)
         
-        return sum(map(lambda item: math.fabs(item - mu), items)) / len(items)
+        return Helpers.sumWrapper(map(lambda item: abs(item - mu), items)) / float(len(items))
 
     @staticmethod
     def min(items):
@@ -91,8 +94,8 @@ class Stats(object):
 
         if mu == None:
             mu = Stats.mean(items)
-            
-        return sum(map(lambda item: math.pow(item - mu, power), items)) / ((len(items) - 1) * math.pow(Stats.stdev(items, mu), power)) 
+        
+        return Helpers.sumWrapper(map(lambda item: ((item - mu)**power), items)) / ((Stats.stdev(items, mu)**power) * (len(items) - 1)) 
     
     @staticmethod
     def kurtosis(items, mu=None):
@@ -107,5 +110,54 @@ class Stats(object):
     @staticmethod
     def standardError(items, mu=None):
         
-        return Stats.stdev(items, mu) / math.sqrt(len(items))
+        return Stats.stdev(items, mu) / (len(items)**(0.5))
     
+    @staticmethod
+    def covariance(firstValue, firstValueMean, secondValue, secondValueMean, sampleSize):
+            return (firstValue - firstValueMean) * (secondValue - secondValueMean) / float(sampleSize)
+        
+    @staticmethod
+    def covarianceFromSets(firstSet, secondSet, firstmu=None, secondmu=None):
+        
+        firstSet, secondSet = DataProcessing.checkSetsAreEqualInLength(firstSet, secondSet)
+        sampleSize = len(firstSet)
+        
+        if firstmu == None:
+            firstmu = Stats.mean(firstSet)
+            
+        if secondmu == None:
+            secondmu = Stats.mean(secondSet)
+            
+        cov = Stats.covariance(firstSet[0], firstmu, secondSet[0], secondmu, sampleSize)
+        firstSet = firstSet[1:]
+        secondSet = secondSet[1:]
+        for firstValue, secondValue in zip(firstSet, secondSet):
+            cov += Stats.covariance(firstValue, firstmu, secondValue, secondmu, sampleSize)
+    
+        return cov
+    
+    @staticmethod
+    def correlation(firstValue, firstValueMean, firstStdev, secondValue, secondValueMean, secondStdev, sampleSize):
+        
+        cov = Stats.covariance(firstValue, firstValueMean, secondValue, secondValueMean, sampleSize)
+        return cov / (firstStdev * secondStdev)
+    
+    @staticmethod
+    def correlationFromSets(firstSet, secondSet, firstmu=None, firstStdev=None, secondmu=None, secondStdev=None):
+
+        firstSet, secondSet = DataProcessing.checkSetsAreEqualInLength(firstSet, secondSet)
+        
+        if firstmu == None:
+            firstmu = Stats.mean(firstSet)
+            
+        if secondmu == None:
+            secondmu = Stats.mean(secondSet)
+            
+        if firstStdev == None:
+            firstStdev = Stats.stdev(firstSet, firstmu)
+            
+        if secondStdev == None:
+            secondStdev = Stats.stdev(secondSet, secondmu)
+        
+        return Stats.covarianceFromSets(firstSet, secondSet, firstmu, secondmu) / (firstStdev * secondStdev)
+        

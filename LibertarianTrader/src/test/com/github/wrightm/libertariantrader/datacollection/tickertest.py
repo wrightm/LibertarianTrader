@@ -121,3 +121,93 @@ class TickerTest(unittest.TestCase):
         tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
         
         self.assertEqual(tickerOne.getAdjustedClose(), 105.00, "ticker one Adjusted Close is not 105.00")
+    
+    def testPosMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = +tickerOne        
+        self.assertEqual(tickerOne, tickerTwo, "tickerOne does not equal tickerTwo")
+
+    def testNegMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1986-10-01", "-100.00", "-110.00", "-90.00", "-105.00", "-1000", "-105.00")
+
+        tickerThree = -tickerOne
+        
+        self.assertEqual(tickerTwo, tickerThree, "ticker Two does not equal ticker three when ticker one is negative")
+        
+    def testAbsMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1986-10-01", "-100.00", "-110.00", "-90.00", "-105.00", "-1000", "-105.00")
+
+        tickerThree = abs(tickerOne)
+        
+        self.assertEqual(tickerOne, tickerThree, "ticker One does not equal ticker three when ticker two is abs(negative)")
+    
+    def testAddMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "10.00", "10.00", "10.00", "10.00", "10", "10.00")
+        tickerTwo = Ticker("Google", "1986-10-01",  "20.00", "20.00", "20.00", "20.00", "20", "20.00")
+
+        tickerThree = tickerOne + tickerOne
+        
+        self.assertEqual(tickerTwo, tickerThree, "ticker Two does not equal ticker three when tickerOne + tickerOne")
+        
+    def testSubtractMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "10.00", "10.00", "10.00", "10.00", "10", "10.00")
+        tickerTwo = Ticker("Google", "1986-10-01",  "20.00", "20.00", "20.00", "20.00", "20", "20.00")
+
+        tickerThree = tickerTwo - tickerOne
+        
+        self.assertEqual(tickerOne, tickerThree, "ticker One does not equal ticker three when tickerTwo - tickerOne")
+  
+    
+    def testMultipleMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "10.00", "10.00", "10.00", "10.00", "10", "10.00")
+        tickerTwo = Ticker("Google", "1986-10-01",  "100.00", "100.00", "100.00", "100.00", "100", "100.00")
+
+        tickerThree = tickerOne * tickerOne
+        
+        self.assertEqual(tickerTwo, tickerThree, "ticker Two does not equal ticker three when tickerOne * tickerOne")
+    
+    def testFloorDivideMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "10.00", "10.00", "10.00", "10.00", "10", "10.00")
+        tickerTwo = Ticker("Google", "1986-10-01",  "1.00", "1.00", "1.00", "1.00", "1", "1.00")
+
+        tickerThree = tickerOne // tickerOne
+        
+        self.assertEqual(tickerTwo, tickerThree, "ticker Two does not equal ticker three when tickerOne / tickerOne")
+  
+    def testDivideMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "10.00", "10.00", "10.00", "10.00", "10", "10.00")
+        tickerTwo = Ticker("Google", "1986-10-01",  "1.00", "1.00", "1.00", "1.00", "1", "1.00")
+
+        tickerThree = tickerOne // tickerOne
+        
+        self.assertEqual(tickerTwo, tickerThree, "ticker Two does not equal ticker three when tickerOne / tickerOne")
+  
+    def testModMagicMethod(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "2.00", "2.00", "2.00", "2.00", "2", "2")
+        tickerTwo = Ticker("Google", "1986-10-01",  "3.00", "3.00", "3.00", "3.00", "3", "3")
+
+        tickerThree = tickerOne % tickerTwo
+        
+        self.assertEqual(tickerOne, tickerThree, "ticker Two does not equal ticker three when tickerOne % tickerOne")
+  
+    def testPowMagicMethod(self):
+        
+        
+        tickerOne = Ticker("Google", "1986-10-01", "10.00", "10.00", "10.00", "10.00", "10", "10.00")
+        tickerTwo = Ticker("Google", "1986-10-01",  "100.00", "100.00", "100.00", "100.00", "100", "100.00")
+
+        tickerThree = pow(tickerOne, 2)
+        
+        self.assertEqual(tickerTwo, tickerThree, "ticker Two does not equal ticker three when ticker one is pow(ticker, 2)")
+    

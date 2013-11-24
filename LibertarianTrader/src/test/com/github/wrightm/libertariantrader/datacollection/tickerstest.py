@@ -163,4 +163,19 @@ class TickersTest(unittest.TestCase):
         tickers.append(tickerOne)
         tickers.append(tickerTwo)
         
-        self.assertEqual(tickers.getTickerList(), [tickerOne,tickerTwo], "tickers does not equal [tickerOne,tickerTwo]")    
+        self.assertEqual(tickers.getTickerList(), [tickerOne,tickerTwo], "tickers does not equal [tickerOne,tickerTwo]")
+        
+    def testFilterTickerInfo(self):
+        
+        tickerOne = Ticker("Google", "1986-10-01", "100.00", "110.00", "90.00", "105.00", "1000", "105.00")
+        tickerTwo = Ticker("Google", "1985-10-01", "105.00", "115.00", "95.00", "110.00", "1005", "110.00")
+        
+        tickers = Tickers()
+        tickers.append(tickerOne)
+        tickers.append(tickerTwo)
+        
+        closePrices = tickers.filterTickerInfo("getClose")
+        dateClosePrice = tickers.filterTickerInfo("getClose","getDate")
+
+        self.assertEqual(len(closePrices), 2)
+        self.assertEqual(len(dateClosePrice), 2)

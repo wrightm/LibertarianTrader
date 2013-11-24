@@ -150,3 +150,19 @@ class Tickers(object):
             Return List of tickers 
         '''
         return copy.deepcopy(self.__tickers)
+    
+
+    def filterTickerInfo(self,methodValue, methodKey=None):
+        
+        
+        if methodKey != None: 
+            if not hasattr(Ticker, methodKey):
+                raise AttributeError('methodKey is not an attribute of the Ticker object')
+        
+        if not hasattr(Ticker, methodValue):
+            raise AttributeError('methodValue is not an attribute of the Ticker object')
+    
+        if methodKey != None:    
+            return [ ( getattr(ticker, methodKey)(), getattr(ticker, methodValue)() ) for ticker in self.__tickers ]
+        else:
+            return [ getattr(ticker, methodValue)() for ticker in self.__tickers ]
