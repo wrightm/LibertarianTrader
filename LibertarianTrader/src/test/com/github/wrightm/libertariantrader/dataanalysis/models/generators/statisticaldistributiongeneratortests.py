@@ -19,7 +19,7 @@ class StatisticalDistributionGeneratorTest(unittest.TestCase):
         pyplot.plot(x, y)
         x, y = zip(*sorted(guassainDistribution.getCDF().items()))
         pyplot.plot(x, y)
-        pyplot.savefig('/Volumes/MichaelWright1/Dropbox/Projects/LibertarianTrader/LibertarianTrader/resources/plots/test/testGuassianGenerator.png', format='png', dpi=300)
+        #pyplot.savefig('/Volumes/MichaelWright1/Dropbox/Projects/LibertarianTrader/LibertarianTrader/resources/plots/test/testGuassianGenerator.png', format='png', dpi=300)
         
 
 if __name__ == "__main__":

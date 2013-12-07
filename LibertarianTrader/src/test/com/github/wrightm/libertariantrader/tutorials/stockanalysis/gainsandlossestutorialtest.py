@@ -7,7 +7,7 @@ import unittest
 import datetime
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickerfile import TickerFile
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickers import Tickers
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.gainandlosses import TickersGainAndLosses
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.finance.gainandlosses import TickersGainAndLosses
 
 
 class GainsAndLossesTutorialTest(unittest.TestCase):

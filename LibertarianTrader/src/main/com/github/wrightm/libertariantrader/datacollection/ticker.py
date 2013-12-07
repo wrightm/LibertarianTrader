@@ -5,7 +5,7 @@ Stock market ticker:
 '''
 import datetime
 import math
-from src.main.com.github.wrightm.libertariantrader.utils.helpers import Helpers
+from src.main.com.github.wrightm.libertariantrader.utils.generalhelpers import Helpers
 
 #!/usr/bin/env python
 

@@ -6,9 +6,9 @@ Created on 17 Nov 2013
 
 import numpy as np
 from abc import ABCMeta, abstractmethod
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics import Stats
 import math
 import scipy.special
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.helpermethods import Stats
 
 class __Distribution(object):
     '''

@@ -4,12 +4,12 @@ Created on 21 Oct 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencies import SampleFrequencies
-from src.main.com.github.wrightm.libertariantrader.dataanalysis import pmf
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.pmf import biasPmf, Bias,\
-    unBiasPmf
 from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.figuresettings import FigureSettings
 from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.stockplots import Plot
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.pmf import Bias,\
+    biasPmf, unBiasPmf
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.samplefrequencies import SampleFrequencies
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics import pmf
 
 class BiasTest(Bias):
     
@@ -411,8 +411,6 @@ class PmfTest(unittest.TestCase):
         plot = Plot("plot", p_m_f, figureSettings)
         fig, ax = plot.setup()
         plot.save("/Volumes/MichaelWright1/Dropbox/Projects/LibertarianTrader/LibertarianTrader/resources/plots/test/pmfExpTest")
-
-        
         
         
         

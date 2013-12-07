@@ -4,8 +4,8 @@ Created on 28 Oct 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencies import SampleFrequencies
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.cdf import CDF
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.samplefrequencies import SampleFrequencies
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.cdf import CDF
 
 
 class CDFTest(unittest.TestCase):

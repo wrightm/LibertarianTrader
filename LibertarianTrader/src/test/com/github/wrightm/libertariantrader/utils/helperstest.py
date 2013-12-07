@@ -4,9 +4,9 @@ Created on 24 Nov 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.utils.helpers import Helpers
 from src.main.com.github.wrightm.libertariantrader.datacollection.ticker import Ticker
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickers import Tickers
+from src.main.com.github.wrightm.libertariantrader.utils.generalhelpers import Helpers
 
 
 class HelpersTest(unittest.TestCase):

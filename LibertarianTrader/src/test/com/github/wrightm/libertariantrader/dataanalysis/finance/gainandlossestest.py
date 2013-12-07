@@ -4,13 +4,13 @@ Created on 5 Nov 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.gainandlosses import TickersGainAndLosses
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickers import Tickers
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickerfile import TickerFile
 import datetime
 import matplotlib
 from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.figuresettings import FigureSettings
 from src.main.com.github.wrightm.libertariantrader.datavisualisation.plots.stockplots import Plot
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.finance.gainandlosses import TickersGainAndLosses
 
 
 class GainAndLossesTest(unittest.TestCase):

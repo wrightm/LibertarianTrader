@@ -4,8 +4,7 @@ Created on 17 Oct 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencies import SampleFrequencies
-
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.samplefrequencies import SampleFrequencies
 
 class SampleFrequenciesTest(unittest.TestCase):
 

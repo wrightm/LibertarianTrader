@@ -22,7 +22,7 @@ class Helpers(object):
             for tick in items[1:]:
                 ticker += tick
             return ticker
-     
+    
     @staticmethod
     def divideWrapper(obj1, obj2):
 
@@ -39,5 +39,4 @@ class Helpers(object):
         except ZeroDivisionError:
             return 0.0
     
-        
         

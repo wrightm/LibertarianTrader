@@ -4,8 +4,7 @@ Created on 16 Oct 2013
 @author: wrightm
 '''
 import unittest
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics import Stats
-
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.helpermethods import Stats
 
 class StatsTest(unittest.TestCase):
 

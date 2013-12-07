@@ -5,9 +5,9 @@ Created on 23 Nov 2013
 '''
 import unittest
 from src.main.com.github.wrightm.libertariantrader.datacollection.tickers import Tickers
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics import Stats
 import math
 from src.main.com.github.wrightm.libertariantrader.datacollection.ticker import Ticker
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.helpermethods import Stats
 
 class StatisticsTickerTest(unittest.TestCase):
 

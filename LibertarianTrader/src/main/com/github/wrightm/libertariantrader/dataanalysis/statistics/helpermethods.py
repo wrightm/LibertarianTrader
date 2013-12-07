@@ -3,8 +3,8 @@ Created on 15 Oct 2013
 
 @author: wrightm
 '''
-from src.main.com.github.wrightm.libertariantrader.utils.helpers import Helpers
 from src.main.com.github.wrightm.libertariantrader.utils.dataprocessing import DataProcessing
+from src.main.com.github.wrightm.libertariantrader.utils.generalhelpers import Helpers
 
 class Stats(object):
     '''

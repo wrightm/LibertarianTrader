@@ -3,10 +3,10 @@ Probability Mass Function
 
 @author: wrightm
 '''
-from src.main.com.github.wrightm.libertariantrader.dataanalysis.samplefrequencies import SampleFrequencies
 import math
 import decimal
 import copy
+from src.main.com.github.wrightm.libertariantrader.dataanalysis.statistics.samplefrequencies import SampleFrequencies
 
 class Pmf(object):
     '''
